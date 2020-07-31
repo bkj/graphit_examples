@@ -1,0 +1,26 @@
+element Vertex end
+element Edge end
+
+const edges    : edgeset{Edge}(Vertex,Vertex) = load("test_sym.el");
+const vertices : vertexset{Vertex} = edges.getVertices();
+const label    : vector{Vertex}(int);
+
+extern func _my_external_function(v: Vertex) -> output:int; 
+
+func printLabels(v: Vertex)
+    print label[v];
+end
+
+func initLabels(v : Vertex)
+    label[v] = 0;
+end
+
+func main()
+    
+    vertices.apply(initLabels);
+    vertices.apply(printLabels);
+    vertices.apply(_my_external_function);
+    vertices.apply(printLabels);
+end
+
+
